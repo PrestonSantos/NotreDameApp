@@ -24,13 +24,15 @@ const HomeScreen = ({route, navigation}: NativeStackScreenProps<any, "Home">) =>
   const [notificationsOpen, setNotificationsOpen] = useState(false);
   const [announcementsOpen, setAnnouncementsOpen] = useState(false);
   const [upcomingEventsOpen, setUpcomingEventsOpen] = useState(false);
+  const [absenceOpen, setAbsenceOpen] = useState(false);
+  const [markedAsbent, setMarkAbsent] = useState(false);
 
   function backPress() {
     navigation.navigate("Login");
   }
 
-  function reportAbsencePress(){
-    console.log("yo");
+  function reportAbsencePress(toggle: boolean){
+    setAbsenceOpen(toggle);
   }
 
   function notificationsPress(toggle: boolean){
@@ -47,6 +49,30 @@ const HomeScreen = ({route, navigation}: NativeStackScreenProps<any, "Home">) =>
 
   return (
       <View style={styles.container}>
+        
+        {/* REPORT ABSENCE MODAL:*/}
+        <View style = {{position: 'absolute', alignItems: 'center', justifyContent: 'center', flex: 1, width: '100%', height: '100%'}}>
+          <Modal
+          style = {{justifyContent: 'center', alignContent: 'center', flexDirection: 'column', flex: 1}}
+          animationType="slide"
+          transparent={true}
+          visible={absenceOpen}
+          onRequestClose={() => {
+            setAbsenceOpen(!absenceOpen);
+          }}
+          >
+            <View style = {{backgroundColor: '#eeeeee', height: '100%', width: '100%', alignSelf: 'center'}}>
+              <Text style = {{fontSize: 50, alignSelf: 'center'}}>Report Absence</Text>
+              <View style = {{backgroundColor: "#081454", height: 230, width: '90%', alignSelf: 'center', borderRadius: 20, marginTop: 10}}>
+                <Text style = {{width: '90%', height: 40, fontSize: 25, marginTop: 10, textAlign: 'center', alignSelf: 'center', color: "#f7c10f"}}>Test Student Name</Text>
+                <Text style = {{width: '90%', height: 100, fontSize: 25, marginTop: 10, textAlign: 'center', alignSelf: 'center', color: "white"}}>Is your student going to be absent today?</Text>
+                <Button  onPress = {function(){setMarkAbsent(true)}} title = {markedAsbent ? "Marked Absent" : "Mark Absent?"}></Button>
+              </View>
+
+              <BaseButton marginTop={20} onPress={() => reportAbsencePress(false)} title = "Back" backgroundColor="#081454"></BaseButton>
+            </View>
+          </Modal>
+        </View>
 
         {/* UPCOMING EVENTS MODAL:*/}
         <View style = {{position: 'absolute', alignItems: 'center', justifyContent: 'center', flex: 1, width: '100%', height: '100%'}}>
@@ -200,7 +226,7 @@ const HomeScreen = ({route, navigation}: NativeStackScreenProps<any, "Home">) =>
                 </View>
               }
             >
-              <Pressable onPress={reportAbsencePress}>
+              <Pressable onPress={() => reportAbsencePress(true)}>
                 <View style = {{backgroundColor: "#081454", height: '100%', width: '100%', borderWidth: 5, borderRadius: 20}}>
                   <Text style = {{color: "#f7c10f", fontFamily: fonts.bold, fontStyle: 'normal', fontSize: 50, alignSelf: 'flex-end', right: 15}}>Report</Text>
                   <Text style = {{color: "#f7c10f", fontFamily: fonts.bold, fontSize: 50, alignSelf: 'flex-end', right: 15}}>Absence</Text>

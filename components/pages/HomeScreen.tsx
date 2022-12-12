@@ -66,9 +66,10 @@ const HomeScreen = ({route, navigation}: NativeStackScreenProps<any, "Home">) =>
               <View style = {{backgroundColor: "#081454", height: 230, width: '90%', alignSelf: 'center', borderRadius: 20, marginTop: 10}}>
                 <Text style = {{width: '90%', height: 40, fontSize: 25, marginTop: 10, textAlign: 'center', alignSelf: 'center', color: "#f7c10f"}}>Test Student Name</Text>
                 <Text style = {{width: '90%', height: 100, fontSize: 25, marginTop: 10, textAlign: 'center', alignSelf: 'center', color: "white"}}>Is your student going to be absent today?</Text>
-                <Button  onPress = {function(){setMarkAbsent(true)}} title = {markedAsbent ? "Marked Absent" : "Mark Absent?"}></Button>
+                <Pressable onPress = {function(){setMarkAbsent(true)}}>
+                  <Text style = {{borderRadius: 10, textAlign: 'center', width: 200, color: 'black', fontSize: 25, alignSelf: 'center', backgroundColor: "#f7c10f"}}>{markedAsbent ? "Marked Absent" : "Mark Absent?"}</Text>
+                </Pressable>
               </View>
-
               <BaseButton marginTop={20} onPress={() => reportAbsencePress(false)} title = "Back" backgroundColor="#081454"></BaseButton>
             </View>
           </Modal>
